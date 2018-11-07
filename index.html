@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang ="ja">
+<meta charset="utf-8">
+<head>
+    <link rel="stylesheet" href="./milligram.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="column columns-50 card">
+        <label for="commentField">JSON</label>
+        <textarea placeholder="JSONを貼り付けます。" class="text-area" spellcheck="false" id="JSONAField" /></textarea>
+        <span id= "jsonAFieldError" class="json-a-field-error">エラー：JSON形式ではありません</span>
+      </div>
+      <div class="column columns-50 card">
+        <label for="commentField">JSON</label>
+        <textarea placeholder="差分比較したいJSONを貼り付けます。" class="text-area" spellcheck="false" id="JSONBField"></textarea>
+        <span id= "jsonBFieldError" class="json-b-field-error">エラー：JSON形式ではありません</span>
+      </div>
+    </div>
+    <div class="row">
+      <div id="list" class="list column columns-50 card">
+      </div>
+    </div>
+  </div>
+  <script src="./diffJson.js"></script>
+  <script src="./index.js"></script>
+</body>
