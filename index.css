@@ -11,6 +11,10 @@
    border: #EEEEEE 1px solid;
  }
 
+ .container { 
+   padding: 2.0rem !important;
+ }
+
  .text-area {
    background-color: #FFFFFF;
  }

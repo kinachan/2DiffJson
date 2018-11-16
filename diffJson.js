@@ -1,10 +1,9 @@
 
 const isObject = any => typeof any === 'object' && any !== null && !Array.isArray(any);
 const setCompareObject = (a, b, key, object) => {
-  const newValue = b[key] || null;
   object[key] = {
-    oldVal: a[key],
-    newval: newValue,
+    oldVal: a[key] || null,
+    newval: b[key] || null,
   };
 };
 
@@ -14,7 +13,15 @@ const isNeedDeleteProp = (result, object, key) => {
   }
 };
 
+const checkNewProperty = (a, b, object) => {
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
 
+  bKeys.forEach((bKey) => {
+    if (aKeys.includes(bKey)) return;
+    setCompareObject(a, b, bKey, object);
+  });
+};
 
 let compareArray; // ESLintのエラー避けとして変数をここに定義している。
 
@@ -25,6 +32,7 @@ const isDiffValue = (isObj, isArr, compareFunc) => {
 
 const compareObject = (a, b = {}, object = {}) => {
   const aKeys = Object.keys(a);
+  checkNewProperty(a, b, object);
 
   aKeys.forEach((key) => {
     const item = a[key];
@@ -76,7 +84,7 @@ compareArray = (a, b = [], object = {}) => {
 
 const diffJson =  (a, b) => {
   if (a == null || b == null) {
-    console.error('どちらかがnullだと正確な判定ができません');
+    return null;
   }
   if (isObject(a)) {
     return compareObject(a, b, {});

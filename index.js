@@ -14,17 +14,6 @@ const onPaste = () => {
   }, 500);
 }
 
-const toObject = (string) => {
-  const keyRegex = new RegExp(/(\s{1})([a-zA-Z]*)(:)/, 'g');
-  const valueRegex = new RegExp(/(:)(\s)(')(.*)(')/, 'g');
-  const lastCommaRegex = new RegExp(/(})(,)(\n)(\s*)(]|})(,)/, 'g');
-  string = string.replace(keyRegex, `$1"$2"$3`);
-  string = string.replace(valueRegex, `$1$2"$4"`);
-  string = string.replace(lastCommaRegex, `$1$3$4$5`);
-
-  return JSON.parse(string);
-}
-
 const validError = (data, name) => {
   const targetElement = name === 'jsonAFieldError' ? jsonAFieldError : jsonBFieldError;
   if (!data.result) {
@@ -74,14 +63,10 @@ const JSONTryParse = (string) => {
   }
 }
 
-
 const canChangeFormat = (value) => {
   if (value === '' ) return {result: false, value: null }
 
   if (!isJsonFormat(value)) {
-    // if (isObject(toObject(value))) {
-    //   return {result: true, value: value}
-    // }
     return {result: false, value: null};
   }
   const json = JSONTryParse(value);
@@ -101,7 +86,6 @@ const successFunction = () => {
   }
 
   const result = diffJson(formatAValue.value, formatBValue.value);
-  console.log(result);
   createHtmlElements(result);
 }
 
